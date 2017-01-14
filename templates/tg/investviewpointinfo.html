@@ -1,0 +1,133 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+  <title>观点详情</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 6px;
+    }
+
+    body {
+      font-family: "微软雅黑";
+      font-size: 2.4rem;
+      line-height: 3.8rem;
+      color: #000;
+      background-color: #F0EFF5;
+    }
+
+    h2 {
+      font-size: 4rem;
+      font-weight: normal;
+      padding-top: 4rem;
+    }
+
+    .font-1 {
+      font-size: 2.4rem;
+      opacity: 0.7;
+    }
+
+    .font-2 {
+      font-size: 2.6rem;
+    }
+
+    .font-3 {
+      font-size: 2.4rem;
+      opacity: 0.4;
+    }
+
+    header {
+      padding: 0rem 4rem;
+      overflow: hidden;
+    }
+
+    section {
+      padding: 4rem;
+      overflow: hidden;
+    }
+
+    aside {
+      padding: 4rem 0rem;
+      overflow: hidden;
+    }
+
+    figure {
+      padding-bottom: 4rem;
+    }
+
+    figure img {
+      border-radius: 1rem;
+      width: 100%;
+    }
+
+    section {
+      font-size: 2.4rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    section p {
+      opacity: 0.5;
+      padding: 0.5rem 0;
+    }
+
+    section em {
+      font-style: normal;
+      padding: 1.5rem 0rem;
+      display: block;
+    }
+
+    .left {
+      float: left;
+      padding-left: 10rem;
+      position: relative;
+    }
+
+    .left .img {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 4rem;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .right {
+      float: right;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h2>{{ vp.title }}</h2>
+  <aside>
+    <div class="left">
+      {% if vp.owner.avatar %}
+        <img class="img" src="{{ vp.owner.avatar.url }}" width="80" height="80"/>
+      {% endif %}
+      <p class="font-2">{{ vp.owner.nick_name }}</p>
+      <p class="font-1">{{ vp.owner.investadviserinfo.title }}</p>
+    </div>
+    <div class="right font-3">{{ vp.pub_daytime | date:'y-m-d H:i:s' }}</div>
+  </aside>
+</header>
+<section>
+  {% if vp.sub_picture %}
+    <figure>
+      <img src="{{ vp.sub_picture.url }}"/>
+    </figure>
+  {% endif %}
+
+  {% autoescape off %}
+    {{ vp.content}}
+  {% endautoescape %}
+</section>
+</body>
+</html>

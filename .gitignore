@@ -1,0 +1,13 @@
+wanheapi/settings.py
+debug.log
+sql.log
+whapi.log
+jobfile.log
+.idea
+.environment
+.DS_STORE
+.Python
+*.pyc
+up.bat
+web_excludes.txt
+

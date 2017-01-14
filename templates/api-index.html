@@ -1,0 +1,63 @@
+{% extends "rest_framework/base.html" %}
+{% load staticfiles %}
+{% load rest_framework %}
+
+{% block body %}
+  <body style="background:ghostwhite">
+
+  <div class="wrapper">
+    {% block navbar %}
+      <div class="navbar navbar-static-top {% block bootstrap_navbar_variant %}navbar-inverse{% endblock %}">
+        <div class="container">
+          <span>
+            {% block branding %}
+              <a class='navbar-brand' rel="nofollow" href='http://www.django-rest-framework.org'>
+                列表入口
+              </a>
+            {% endblock %}
+          </span>
+          <ul class="nav navbar-nav pull-right">
+            {% block userlinks %}
+              {% if user.is_authenticated %}
+                {% optional_logout request user %}
+              {% else %}
+                {% optional_login request %}
+              {% endif %}
+            {% endblock %}
+          </ul>
+        </div>
+      </div>
+    {% endblock %}
+
+    <div class="container">
+      <h3 style="padding-top: 70px">api列表</h3>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-condensed">
+          <tbody>
+          {% for urldata in urldatas %}
+            <tr>
+              <td width="25%">{{ forloop.counter }}&nbsp;&nbsp;{{ urldata.doc }}</td>
+              <td><a href="{{ urldata.demourl }}">{{ urldata.demourl }}</a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div> 
+    </div>
+  </div><!-- ./wrapper -->
+
+  {% block script %}
+    <script src="{% static "rest_framework/js/jquery-1.11.3.min.js" %}"></script>
+    <script src="{% static "rest_framework/js/ajax-form.js" %}"></script>
+    <script src="{% static "rest_framework/js/csrf.js" %}"></script>
+    <script src="{% static "rest_framework/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
+    <script src="{% static "rest_framework/js/default.js" %}"></script>
+    <script>
+      $(document).ready(function() {
+        $('form').ajaxForm();
+      });
+    </script>
+  {% endblock %}
+  </body>
+{% endblock %}
